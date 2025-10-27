@@ -1,4 +1,5 @@
 'use client'
+
 import {Disclosure, DisclosureButton, DisclosurePanel} from '@headlessui/react'
 import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
 import Image from "next/image"
@@ -6,13 +7,80 @@ import Logo from '@/public/opala-filmes.png'
 import Link from "next/link"
 import {FaLongArrowAltLeft} from "react-icons/fa"
 import {BiCameraMovie} from "react-icons/bi"
+import { useSession, signIn, signOut } from 'next-auth/react';
+import { useState, useEffect } from 'react';
 import './styles.css'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export const NavBar = ({navigation, onClick, isHome}) => {
+export const NavBar = ({ isHome }) => {
+    const { data: session, status } = useSession();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const renderAuthSection = () => {
+        if (!mounted || status === 'loading') {
+            return <div className="h-10 w-24 rounded-lg bg-[var(--deep-space-light)] animate-pulse"></div>;
+        }
+
+        if (status === 'authenticated') {
+            return (
+                <div className="hidden sm:flex items-center space-x-4">
+                    <span className="text-sm text-[var(--cosmic-white)]">Olá, {session.user.name}</span>
+                    <button
+                        onClick={() => signOut({ callbackUrl: '/' })}
+                        className="add-movie-button rounded-lg px-6 py-3 text-[#0BDB72] hover:text-[#EAEFF0] transition-all duration-300 uppercase tracking-wider"
+                    >
+                        Sair
+                    </button>
+                </div>
+            );
+        }
+
+        return (
+            <div className="hidden sm:block">
+                <Link href="/login">
+                    <button className="add-movie-button rounded-lg px-6 py-3 text-[#0BDB72] hover:text-[#EAEFF0] transition-all duration-300 uppercase tracking-wider">
+                        Login
+                    </button>
+                </Link>
+            </div>
+        );
+    };
+    
+    const renderMobileAuthSection = () => {
+        if (!mounted) return null;
+
+        if (status === 'authenticated') {
+            return (
+                <>
+                    <div className="px-4 py-2 text-sm text-[var(--cosmic-white)]">Olá, {session.user.name}</div>
+                    <DisclosureButton
+                        as="button"
+                        onClick={() => signOut({ callbackUrl: '/' })}
+                        className={'mobile-nav-item'}
+                    >
+                        Sair
+                    </DisclosureButton>
+                </>
+            )
+        }
+        return (
+            <DisclosureButton
+                as={Link}
+                href="/login"
+                className={'mobile-nav-item'}
+            >
+                Login
+            </DisclosureButton>
+        )
+    }
+
     return (
         <Disclosure as="nav" className="relative retro-cinema">
             {({open}) => (
@@ -46,51 +114,14 @@ export const NavBar = ({navigation, onClick, isHome}) => {
                                     </Link>
                                 </div>
 
-                                {/* Menu desktop */}
-                                {isHome ? (
-                                    <div className="hidden sm:block">
-                                        <div className="nav-menu">
-                                            {navigation.map((item) => (
-                                                <button
-                                                    key={item.name}
-                                                    onClick={() => item.onClick(item.name)}
-                                                    className={classNames(
-                                                        'nav-menu-link px-5 py-3',
-                                                        'uppercase tracking-wider',
-                                                        'transition-all duration-300',
-                                                        item.current
-                                                            ? 'text-[#0BDB72]'
-                                                            : 'text-[#EAEFF0] hover:text-[#0BDB72]'
-                                                    )}
-                                                >
-                                                    {item.name}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                ) : (
+                                {/* Auth Section Desktop */}
+                                {isHome ? renderAuthSection() : (
                                     <Link href={'/'}>
                                         <button className="nav-menu-link px-6 py-3 flex items-center space-x-3 text-[#EAEFF0] hover:text-[#0BDB72]">
                                             <FaLongArrowAltLeft className="text-lg" />
                                             <span>Voltar</span>
                                         </button>
                                     </Link>
-                                )}
-
-                                {/* Botão Adicionar */}
-                                {isHome && (
-                                    <button
-                                        onClick={onClick}
-                                        className="add-movie-button rounded-lg px-6 py-3
-                                        text-[#0BDB72] hover:text-[#EAEFF0]
-                                        transition-all duration-300 uppercase tracking-wider
-                                        flex items-center space-x-2"
-                                    >
-                                        <span className="icon-wrapper">
-                                            <BiCameraMovie className="text-xl neon-flicker" />
-                                        </span>
-                                        <span>Adicionar Filme</span>
-                                    </button>
                                 )}
                             </div>
                         </div>
@@ -101,19 +132,7 @@ export const NavBar = ({navigation, onClick, isHome}) => {
                     {/* Menu mobile */}
                     <DisclosurePanel className="sm:hidden">
                         <div className="mobile-menu">
-                            {navigation.map((item) => (
-                                <DisclosureButton
-                                    key={item.name}
-                                    as="button"
-                                    onClick={() => item.onClick(item.name)}
-                                    className={classNames(
-                                        'mobile-nav-item',
-                                        item.current && 'active'
-                                    )}
-                                >
-                                    {item.name}
-                                </DisclosureButton>
-                            ))}
+                           {renderMobileAuthSection()}
                         </div>
                     </DisclosurePanel>
                 </>

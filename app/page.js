@@ -9,7 +9,11 @@ import {Alert} from "@/app/components/alert/Alert";
 import MoviePicker from "@/app/components/sort-movie/SortMovie";
 import { useRouter } from 'next/navigation';
 
+import { useSession } from 'next-auth/react';
+import LoadingScreen from '@/app/components/loading/LoadingScreen';
+
 export default function Home() {
+    const { data: session, status } = useSession();
     const router = useRouter();
     const [isWatchedMovies, setIsWatchedMovies] = useState(false);
     const [isSortMovie, setIsSortMovie] = useState(false);
@@ -20,15 +24,18 @@ export default function Home() {
     const [isError, setIsError] = useState(false);
 
     useEffect(() => {
-        // api call
-        getMovies().then((result) => {
-            const moviesArray = Object.entries(result).map(([key, value]) => ({
-                id: key,
-                ...value
-            }));
-            setMovies(moviesArray)
-        }).catch((e) => console.log(e))
-    }, [alertMessage]);
+        if (status === 'authenticated' && database) {
+            getMovies().then((result) => {
+                if (result) {
+                    const moviesArray = Object.entries(result).map(([key, value]) => ({
+                        id: key,
+                        ...value
+                    }));
+                    setMovies(moviesArray)
+                }
+            }).catch((e) => console.log("Error fetching movies:", e))
+        }
+    }, [status, alertMessage]);
 
     async function getMovies() {
         const movieRef = ref(database, 'movies')
@@ -48,8 +55,10 @@ export default function Home() {
     }
 
     useEffect(() => {
-        const filtered = movies.filter(movie => movie.watched === isWatchedMovies);
-        setFilteredMovies(filtered);
+        if (movies) {
+            const filtered = movies.filter(movie => movie.watched === isWatchedMovies);
+            setFilteredMovies(filtered);
+        }
     }, [movies, isWatchedMovies]);
 
     const handleTierList = () => {
@@ -64,6 +73,12 @@ export default function Home() {
     ]
 
     const handleSaveMovie = async ({title, description, imageUrl, watched}) => {
+        if (!database) {
+            setAlertMessage("A conexão com o banco de dados não está configurada.");
+            setIsError(true);
+            setTimeout(() => setAlertMessage(""), 3000);
+            return;
+        }
         const movieUuid = crypto.randomUUID();
         try {
             const movieToSave = {
@@ -93,6 +108,9 @@ export default function Home() {
         }
     }
 
+    if (status === 'loading') {
+        return <LoadingScreen />;
+    }
 
     return (
         <div className="flex flex-col">

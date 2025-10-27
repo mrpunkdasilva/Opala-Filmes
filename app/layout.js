@@ -54,18 +54,23 @@ export const metadata = {
     title: "Opala Filmes",
     description: "Lugar onde opaleiros podem votar sobre filmes em paz",
     images: ["/opala-filmes.png"]
-  }
+  },
+  metadataBase: new URL("https://opala-filmes.vercel.app/"),
 };
 
 export { viewport } from './viewport'
 
+import NextAuthProvider from "@/app/components/NextAuthProvider";
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning={true}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+      <NextAuthProvider>
         {children}
+      </NextAuthProvider>
       </body>
     </html>
   );
