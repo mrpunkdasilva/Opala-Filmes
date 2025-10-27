@@ -10,7 +10,14 @@ const firebaseConfig = {
     appId: process.env.FIREBASE_APP_ID,
 };
 
-const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-const database = getDatabase(app);
+let database = null;
+
+// Only initialize Firebase if Project ID is provided
+if (firebaseConfig.projectId) {
+    const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+    database = getDatabase(app);
+} else {
+    console.warn("Firebase credentials are not fully provided (missing Project ID). Skipping Firebase initialization.");
+}
 
 export {database};
