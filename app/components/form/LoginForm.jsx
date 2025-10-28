@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image'; // Import Image component
 import { Eye, EyeOff } from 'lucide-react';
 
 export default function LoginForm() {
@@ -40,6 +41,15 @@ export default function LoginForm() {
 
   return (
     <div className="w-full max-w-md p-8 space-y-6 rounded-lg glass-dark border border-[var(--neon-green-dim)]">
+      <div className="flex justify-center mb-4">
+        <Image
+          src="/opala-filmes.png"
+          alt="Opala Filmes Logo"
+          width={150}
+          height={150}
+          priority
+        />
+      </div>
       <h1 className="text-2xl font-bold text-center text-[var(--cosmic-white)]">Login</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
