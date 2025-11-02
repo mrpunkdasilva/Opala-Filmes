@@ -41,6 +41,10 @@
     position: relative;
     border-top: 20px solid #222; /* Lighter border */
     border-bottom: 20px solid #222; /* Lighter border */
+    display: flex; /* Para centralizar o conteúdo */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Para garantir que a imagem não vaze */
 }
 
 .film-frame::before,
@@ -62,6 +66,22 @@
 
 .film-frame::after {
     bottom: -12px;
+}
+
+.film-frame-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem cubra todo o frame sem distorcer */
+    display: block; /* Remove espaço extra abaixo da imagem */
+}
+
+.film-frame-placeholder {
+    background-color: #555; /* Cor para o placeholder */
+    color: #eee;
+    font-size: 0.8em;
+    text-align: center;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
 .vignette-overlay {
