@@ -66,6 +66,7 @@ export const metadata = {
 export { viewport } from './viewport'
 
 import NextAuthProvider from "@/app/components/NextAuthProvider";
+import { IdentityProvider } from "@/app/contexts/IdentityContext";
 
 export default function RootLayout({ children }) {
   return (
@@ -74,7 +75,9 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} antialiased`}
       >
       <NextAuthProvider>
-        {children}
+        <IdentityProvider>
+          {children}
+        </IdentityProvider>
       </NextAuthProvider>
       </body>
     </html>

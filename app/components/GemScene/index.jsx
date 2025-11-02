@@ -4,14 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { useMemo } from "react";
-
-function makePRNG(seed) {
-  let s = seed ? seed.split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0) : Math.floor(Math.random() * 10000);
-  return function () {
-    s = (s * 9301 + 49297) % 233280;
-    return s / 233280;
-  };
-}
+import { makePRNG, generateGemId } from "@/app/lib/gem-generator";
 
 function GemMesh({ seed }) {
   const prng = useMemo(() => makePRNG(seed), [seed]);
@@ -49,15 +42,7 @@ function GemMesh({ seed }) {
 }
 
 export function GemScene({ seed }) {
-  const gemId = useMemo(() => {
-    if (!seed) return '0x0000000000000000';
-    const prng = makePRNG(seed + '-id'); // use a different seed for id
-    let id = '0x';
-    for (let i = 0; i < 16; i++) {
-      id += Math.floor(prng() * 16).toString(16);
-    }
-    return id.toUpperCase();
-  }, [seed]);
+  const gemId = useMemo(() => generateGemId(seed ? seed + '-id' : null), [seed]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
