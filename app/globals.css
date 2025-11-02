@@ -241,3 +241,8 @@ body {
     inset 0 0 10px var(--neon-green-glow),
     0 0 15px var(--neon-green-glow);
 }
+
+
+button {
+    cursor: pointer;
+}
