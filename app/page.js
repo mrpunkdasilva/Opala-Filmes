@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 
 import { useSession } from 'next-auth/react';
 import LoadingScreen from '@/app/components/loading/LoadingScreen';
+import FilmStripCarousel from '@/app/components/effects/film-strip-carousel/FilmStripCarousel';
 
 export default function Home() {
     const { data: session, status } = useSession();
@@ -115,9 +116,11 @@ export default function Home() {
     if (status === 'unauthenticated') {
         return (
             <div className="flex flex-col h-screen">
+                <FilmStripCarousel />
                 <NavBar navigation={[]} onClick={() => {}} isHome={true}/>
-                <div className="flex-grow flex justify-center items-center">
-                    <h1 className="text-2xl font-bold text-white text-center">
+                <div className="flex-grow flex justify-center items-center" style={{zIndex: 1}}>
+                    <h1 className="text-2xl font-bold text-white text-center"
+                        style={{textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)'}}>
                         Bem-vindo ao Opala Filmes!<br/>
                         Faça login para começar a organizar seus filmes.
                     </h1>
