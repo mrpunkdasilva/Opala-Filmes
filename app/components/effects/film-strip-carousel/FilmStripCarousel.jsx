@@ -65,7 +65,7 @@ export default function FilmStripCarousel() {
     const carousels = [
         { top: '10%', baseDuration: 80, direction: 'normal', baseZ: -300 },
         { top: '30%', baseDuration: 60, direction: 'reverse', baseZ: -150 },
-        { top: '50%', duration: 70, direction: 'normal', baseZ: 0 },
+        { top: '50%', baseDuration: 70, direction: 'normal', baseZ: 0 },
         { top: '70%', baseDuration: 55, direction: 'reverse', baseZ: -150 },
         { top: '90%', baseDuration: 75, direction: 'normal', baseZ: -300 },
     ];
@@ -94,7 +94,7 @@ export default function FilmStripCarousel() {
                 const skewY = mousePosition.y * 2; // Pequena inclinação vertical
                 const scaleFactor = 1 + (Math.abs(mousePosition.x) * 0.05); // Pequena escala
 
-                const blurAmount = (1 - depthFactor) * 5; // Blur máximo de 5px para os mais distantes
+                const blurAmount = 0.5 + ((1 - depthFactor) * 1.5); // Blur varia de 0.5px a 2px
 
                 return (
                     <div
