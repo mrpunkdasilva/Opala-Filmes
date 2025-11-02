@@ -233,6 +233,7 @@
     transform-style: preserve-3d;
     border: 2px solid var(--cosmic-white);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
 }
 
 .carousel-movie.selected {

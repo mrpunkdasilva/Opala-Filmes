@@ -62,6 +62,7 @@
     overflow: hidden;
     transform-style: preserve-3d;
     perspective: 1000px;
+    cursor: pointer;
 }
 
 /* Background patterns para cada tier */
@@ -266,6 +267,7 @@
     border: 2px solid var(--cosmic-white);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease;
+    cursor: pointer;
 }
 
 .tier-movie:hover {

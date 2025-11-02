@@ -12,6 +12,7 @@
   transform-style: preserve-3d;
   width: 100%;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 /* Efeito de filme antigo */

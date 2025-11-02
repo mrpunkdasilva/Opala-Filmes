@@ -171,6 +171,7 @@
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .movie-link:hover {
