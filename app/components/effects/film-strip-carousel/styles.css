@@ -7,13 +7,15 @@
     overflow: hidden;
     z-index: 0;
     background-color: #000;
+    perspective: 1000px;
+    transform-style: preserve-3d;
 }
 
 .film-carousel-positioner {
     position: absolute;
     left: 0;
-    transform: translateY(-50%);
     height: 140px;
+    transform-style: preserve-3d;
 }
 
 .film-carousel-track {
