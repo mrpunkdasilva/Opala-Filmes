@@ -112,6 +112,20 @@ export default function Home() {
         return <LoadingScreen />;
     }
 
+    if (status === 'unauthenticated') {
+        return (
+            <div className="flex flex-col h-screen">
+                <NavBar navigation={[]} onClick={() => {}} isHome={true}/>
+                <div className="flex-grow flex justify-center items-center">
+                    <h1 className="text-2xl font-bold text-white text-center">
+                        Bem-vindo ao Opala Filmes!<br/>
+                        Faça login para começar a organizar seus filmes.
+                    </h1>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="flex flex-col">
             {alertMessage && (
