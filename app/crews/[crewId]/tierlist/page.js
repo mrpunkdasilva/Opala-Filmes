@@ -1,9 +1,9 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { NavBar } from "@/app/components/navbar/NavBar";
-import { TierList } from "@/app/components/tier-list/TierList";
-import { get, ref } from 'firebase/database';
-import { database } from "@/app/firebase/firebase";
+import { NavBar }              from "@/app/components/navbar/NavBar";
+import { TierList }            from "@/app/components/tier-list/TierList";
+import { get, ref }            from 'firebase/database';
+import { database }            from "@/app/firebase/firebase";
 
 const classifyMovieByRating = (rating) => {
     if (!rating && rating !== 0) return null;

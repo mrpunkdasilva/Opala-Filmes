@@ -35,7 +35,7 @@ export const Card = ({ image, title, description, rating }) => {
                 </p>
                 <div className="movie-card-rating">
                     <RenderStars rating={rating} />
-                    <span>{rating.toFixed(1)}</span>
+                    <span>{typeof rating === 'number' ? rating.toFixed(1) : 'N/A'}</span>
                 </div>
             </div>
         </div>

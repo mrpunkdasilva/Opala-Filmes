@@ -1,0 +1,57 @@
+.bottom-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px; /* Altura do menu inferior */
+  background-color: #1a1b26; /* Cor de fundo escura */
+  color: #ffffff; /* Cor do texto */
+  padding-top: 0;
+  transform: translateY(0); /* Sempre visível */
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000; /* Acima de tudo */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.bottom-menu-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.bottom-menu-nav li {
+  margin-bottom: 0;
+}
+
+.bottom-menu-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.75rem;
+  text-align: center;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.bottom-menu-link:hover {
+  background-color: #2c2d3a;
+}
+
+.bottom-menu-icon {
+  margin-right: 0;
+  margin-bottom: 0;
+  font-size: 1.5rem; /* Aumentar o tamanho do ícone */
+}
+
+.bottom-menu-text {
+  display: none; /* Ocultar texto */
+}
+

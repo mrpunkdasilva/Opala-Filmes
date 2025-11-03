@@ -1,12 +1,12 @@
 'use client'
-import {MovieShow} from "@/app/components/movie-show";
-import {MovieShowButtons} from "@/app/components/movie-show-buttons";
+import {MovieShow}                from "@/app/components/movie-show";
+import {MovieShowButtons}         from "@/app/components/movie-show-buttons";
 import {use, useEffect, useState} from 'react'
-import {Modal} from "@/app/components/modal/Modal";
-import {get, ref, set} from "firebase/database";
-import {database} from "@/app/firebase/firebase";
-import {Alert} from "@/app/components/alert/Alert";
-import {NavBar} from "@/app/components/navbar/NavBar";
+import {Modal}                    from "@/app/components/modal/Modal";
+import {get, ref, set}            from "firebase/database";
+import {database}                 from "@/app/firebase/firebase";
+import {Alert}                    from "@/app/components/alert/Alert";
+import {NavBar}                   from "@/app/components/navbar/NavBar";
 
 export default function Page({params}) {
     const resolvedParams = use(params)

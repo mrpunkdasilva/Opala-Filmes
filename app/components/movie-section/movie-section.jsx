@@ -1,24 +1,24 @@
-import { Card } from "@/app/components/Card";
-import Link from "next/link";
-import { Background3D } from './movie-section/Background3D';
-import './movie-section/styles.css';
+import { Card }         from "@/app/components/Card";
+import Link             from "next/link";
+import { Background3D } from './Background3D';
+import './styles.css';
 
 export const MovieSection = ({ cardsData, tittle }) => {
     return (
         <section className="movie-section">
-            <Background3D />
             
             <h1 className="movie-section-title">{tittle}</h1>
+
             <div className="movies-grid">
                 {cardsData.length === 0 ? (
                     <div className="empty-message">
                         Sem filmes
                     </div>
                 ) : (
-                    cardsData.map(card => (
+                    cardsData.map((card, index) => (
                         <Link 
                             href={`/${card.uuid}`} 
-                            key={card.uuid}
+                            key={card.uuid || index}
                             className="movie-link"
                         >
                             <Card

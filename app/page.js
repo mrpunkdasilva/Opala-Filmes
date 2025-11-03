@@ -1,6 +1,6 @@
 "use client"
-import {MovieSection} from "@/app/components/movie-section";
-import {NavBar} from "@/app/components/navbar/NavBar";
+import {MovieSection} from "@/app/components/movie-section/movie-section";
+import {NavBar}       from "@/app/components/navbar/NavBar";
 import {useEffect, useState} from "react";
 import {SaveMovieModal} from "@/app/components/modal/SaveMovieModal";
 import {get, ref, set} from 'firebase/database'
